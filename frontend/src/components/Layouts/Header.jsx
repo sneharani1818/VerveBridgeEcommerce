@@ -52,7 +52,7 @@ const Header = () => {
                                             <NavLink onClick={handleLogout} to='/login' className="nav-link text-light link-warning">Logout</NavLink>
                                         </li>
                                         <li className="nav-item">
-                                            <NavLink onClick={() => { navigate('/dashboard/') }} to={`/dashboard/${auth?.user?.role == 1 ? `admin` : `user`}`} className="nav-link text-dark bg-warning link-dark" style={{ borderRadius: '50%', }}> {(auth?.user?.name).charAt(0).toUpperCase()} </NavLink>
+                                            <NavLink to={`/dashboard/${auth?.user?.role == 1 ? "admin" : "user"}`} className="nav-link text-dark bg-warning link-dark" style={{ borderRadius: '50%', }}> {(auth?.user?.name).charAt(0).toUpperCase()} </NavLink>
                                         </li>
 
                                     </>
