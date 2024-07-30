@@ -55,6 +55,9 @@ const Login = () => {
                     <div className="col-12 text-center">
                         <button type="submit" className="btn btn-warning" onClick={handleSubmit}>Login</button>
                     </div>
+                    <div className="col-12 text-center">
+                        <button type="button" className="btn btn-outline-warning" onClick={() => { navigate('/forgot-password') }}>Forgot password</button>
+                    </div>
                 </div>
 
             </div>

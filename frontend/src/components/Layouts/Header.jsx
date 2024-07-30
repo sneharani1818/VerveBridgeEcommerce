@@ -1,11 +1,12 @@
 import React from 'react'
-import { NavLink, Link, Navigate } from 'react-router-dom'
+import { NavLink, Link, Navigate, useNavigate } from 'react-router-dom'
 import { IoCart } from 'react-icons/io5'
 import { useAuth } from '../../context/auth'
 import toast from 'react-hot-toast'
 
 const Header = () => {
     const [auth, setAuth] = useAuth()
+    const navigate = useNavigate()
 
     const handleLogout = () => {
         setAuth({
@@ -50,6 +51,10 @@ const Header = () => {
                                         <li className="nav-item">
                                             <NavLink onClick={handleLogout} to='/login' className="nav-link text-light link-warning">Logout</NavLink>
                                         </li>
+                                        <li className="nav-item">
+                                            <NavLink onClick={() => { navigate('/dashboard/') }} to={`/dashboard/${auth?.user?.role == 1 ? `admin` : `user`}`} className="nav-link text-dark bg-warning link-dark" style={{ borderRadius: '50%', }}> {(auth?.user?.name).charAt(0).toUpperCase()} </NavLink>
+                                        </li>
+
                                     </>
 
                             }
@@ -64,7 +69,7 @@ const Header = () => {
                         {/* </form> */}
                     </div>
                 </div>
-            </nav>
+            </nav >
 
         </>
     )
