@@ -37,7 +37,7 @@ const Login = () => {
         }
     }
     return (
-        <Layout title='Register | Ecommerce App'>
+        <Layout title='Login | Ecommerce App'>
             <div>
                 <h1 className='text-center mb-4'>Login</h1>
                 {/* below is form */}
