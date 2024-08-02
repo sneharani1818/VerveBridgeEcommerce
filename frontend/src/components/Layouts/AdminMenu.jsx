@@ -9,7 +9,8 @@ const AdminMenu = () => {
                 <div className="list-group">
                     {/* <NavLink to='' className="list-group-item list-group-item-action active" aria-current="true">An active item</NavLink> */}
                     <NavLink to='/dashboard/admin/create-category' className="list-group-item list-group-item-action">Create Category</NavLink>
-                    <NavLink to='/dashboard/admin/create-product' className="list-group-item list-group-item-action">Add new Products</NavLink>
+                    <NavLink to='/dashboard/admin/create-product' className="list-group-item list-group-item-action">Add Products</NavLink>
+                    <NavLink to='/dashboard/admin/products' className="list-group-item list-group-item-action">Products</NavLink>
                     <NavLink to='/dashboard/admin/users' className="list-group-item list-group-item-action">View Users</NavLink>
                     {/* <NavLink to='' className="list-group-item list-group-item-action">And a fifth one</NavLink> */}
                 </div>

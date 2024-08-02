@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const Footer = () => {
     return (
-        <div className='bg-dark text-light mb-0 p-1 sticky-bottom' style={{ marginTop: '70vh' }}>
+        <div className='bg-dark text-light mb-0 p-1 mt-4' >
             <p className="text-center text-light">
                 <Link to='/about' className='text-light link-warning' style={{ textDecoration: 'none' }}>About </Link>
                 |

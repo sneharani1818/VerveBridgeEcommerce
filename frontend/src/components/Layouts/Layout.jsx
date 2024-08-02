@@ -18,7 +18,7 @@ const Layout = ({ title, children }) => {
 
             </Helmet>
             <Header />
-            <main className='container' style={{ height: '80vh' }}>
+            <main className='container-fluid' >
                 <Toaster />
                 {children}
             </main>
