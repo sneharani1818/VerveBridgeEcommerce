@@ -50,7 +50,7 @@ const UpdateProduct = () => {
         }
     }
 
-    //add product function
+    //update product function
     const handleUpdate = async (e) => {
         e.preventDefault()
         try {
@@ -67,9 +67,9 @@ const UpdateProduct = () => {
             console.log([...productData]); // Log FormData contents for debugging
             console.log(data.data.success)
             if (data?.data.success) {
-                toast.success("Product updated successfully")
-                // navigate('/dashboard/admin/products')
-                location.replace("http://localhost:3000/dashboard/admin/products")
+                setTimeout(() => toast.success("Product updated successfully"), 1500)
+                navigate('/dashboard/admin/products')
+                // location.replace("http://localhost:3000/dashboard/admin/products")
             } else {
                 toast.error(data.message)
             }
@@ -79,14 +79,35 @@ const UpdateProduct = () => {
         }
     }
 
+    //delete product function
+    const handleDelete = async () => {
+        try {
+            let answer = window.prompt("Do you really want to delete this product?")
+            if (!answer)
+                return
+            const { data } = await axios.delete(`http://localhost:8080/api/v1/products/delete-product/${id}`)
+            if (data.success) {
+                setTimeout(() => toast.success('Product deleted successfully'), 1500)
+                navigate('/dashboard/admin/products'); // Add this line
+            } else {
+                toast.error(data.message);
+            }
+        } catch (err) {
+            console.log(err)
+            setTimeout(() => toast.error('Error in deleting product'), 1500)
+        }
+    }
+
     useEffect(() => {
         getAllCategories()
+        return;
     }, [])
 
-    useEffect(() =>
+    useEffect(() => {
         getSingleProduct()
+        return;
         //eslint-disable-next-line
-        , [])
+    }, [])
 
     return (
         <Layout title={"Admin dashboard- Products | Ecommerce App"}>
@@ -135,8 +156,15 @@ const UpdateProduct = () => {
                                     <img src={`http://localhost:8080/api/v1/products/product-photo/${id}`} alt='Image' height='200px' className='img img-responsive' />
                                 </div>
                             }</div>
-                            <div className="mb-5">
-                                <button className='btn btn-warning' onClick={handleUpdate}>Update Product</button>
+                            <div className="row text-center">
+                                <div className="col-md-12">
+                                    <div className="mb-3">
+                                        <button className='btn btn-warning' onClick={handleUpdate}>Update Product</button>
+                                    </div>
+                                    <div className="mb-3">
+                                        <button className='btn btn-danger' onClick={handleDelete}>Delete Product</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
