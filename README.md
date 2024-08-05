@@ -42,13 +42,8 @@ The project is divided into five phases:
 5. Revision of Methodology
 
 ## Setup Instructions
-1. **Clone the repository**
-    ```sh
-    git clone https://github.com/yourusername/vervebridge-ecommerce.git
-    cd vervebridge-ecommerce
-    ```
 
-2. **Install dependencies for the server and client**
+1. **Install dependencies for the server and client**
     ```sh
     cd server
     npm install
@@ -56,31 +51,26 @@ The project is divided into five phases:
     npm install
     ```
 
-3. **Set up environment variables**
+2. **Set up environment variables**
     Create a `.env` file in the server directory with the following content:
     ```env
     MONGO_URI=your_mongodb_uri
     JWT_SECRET=your_jwt_secret
     ```
 
-4. **Run the server**
+3. **Run the server**
     ```sh
     cd server
     npm start
     ```
 
-5. **Run the client**
+4. **Run the client**
     ```sh
     cd client
-    npm start
+    npm run dev
     ```
-
-6. **Access the application**
+5. **Access the application**
     Open your browser and go to `http://localhost:3000`
-
-## Coding Standards
-- Write modular, safe, testable, maintainable, and portable code.
-- Follow standard coding practices and document your code appropriately.
 
 ## License
 This project is licensed under the MIT License.
