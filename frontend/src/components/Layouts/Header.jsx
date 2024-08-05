@@ -3,9 +3,14 @@ import { NavLink, Link, Navigate, useNavigate } from 'react-router-dom'
 import { IoCart } from 'react-icons/io5'
 import { useAuth } from '../../context/auth'
 import toast from 'react-hot-toast'
+import SearchInput from './../Forms/SearchInput';
+import { useCart } from '../../context/cart'
+import { Badge } from 'antd'
+
 
 const Header = () => {
     const [auth, setAuth] = useAuth()
+    const [cart] = useCart()
     const navigate = useNavigate()
 
     const handleLogout = () => {
@@ -59,14 +64,13 @@ const Header = () => {
 
                             }
                             <li className="nav-item">
-                                <NavLink to='/cart' className="nav-link text-light link-warning" ><IoCart />(0)</NavLink>
+                                <Badge count={cart?.length} showZero>
+                                    <NavLink to='/cart' className="nav-link text-light link-warning" ><IoCart /></NavLink>
+                                </Badge>
                             </li>
 
                         </ul>
-                        {/* <form className="d-flex" role="search"> */}
-                        <input className="form-control me-2 " type="search" placeholder="Search" aria-label="Search" style={{ width: '20vw' }} />
-                        <button className="btn btn-outline-warning" type="submit">Search</button>
-                        {/* </form> */}
+                        <SearchInput />
                     </div>
                 </div>
             </nav >

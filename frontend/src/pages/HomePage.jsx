@@ -4,8 +4,11 @@ import toast from 'react-hot-toast'
 import axios from 'axios'
 import { Checkbox, Radio } from 'antd'
 import { Prices } from '../components/Prices'
+import { useNavigate } from 'react-router-dom'
+import { useCart } from '../context/cart'
 
 const HomePage = () => {
+    const navigate = useNavigate()
     const [products, setProducts] = useState([])
     const [categories, setCategories] = useState([])
     const [checked, setChecked] = useState([])
@@ -13,6 +16,7 @@ const HomePage = () => {
     const [total, setTotal] = useState(0)
     const [page, setPage] = useState(1)
     const [loading, setLoading] = useState(false)
+    const [cart, setCart] = useCart()
 
 
     //get all products
@@ -153,8 +157,12 @@ const HomePage = () => {
                                     <h5 className="card-title">{p.name}</h5>
                                     <p className="card-text">{p.description.substring(0, 30)}</p>
                                     <p className="card-text"> $ {p.price}</p>
-                                    <button className='btn btn-outline-warning mx-2'>View Product</button>
-                                    <button className='btn btn-warning'>Add to Cart</button>
+                                    <button className='btn btn-outline-warning mx-2' onClick={() => navigate(`/product/${p.slug}`)}>View Product</button>
+                                    <button className='btn btn-warning' onClick={() => {
+                                        setCart([...cart, p])
+                                        localStorage.setItem('cart', JSON.stringify([...cart, p]))
+                                        setTimeout(() => toast.success('Product added to cart'), 1000)
+                                    }}>Add to Cart</button>
                                     {/* <a href="#" className="btn btn-primary">Go somewhere</a> */}
                                 </div>
                             </div>

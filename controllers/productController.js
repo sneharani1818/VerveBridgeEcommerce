@@ -230,3 +230,46 @@ export const productListController = async (req, res) => {
         })
     }
 }
+
+//search product 
+export const searchProductController = async (req, res) => {
+    try {
+        const { keyword } = req.params
+        const result = await productModel.find({
+            $or: [
+                { name: { $regex: keyword, $options: "i" } },
+                { description: { $regex: keyword, $options: "i" } }
+            ]
+        }).select("-photo")
+        res.json(result)
+    } catch (err) {
+        console.log(err)
+        res.status(400).send({
+            success: false,
+            message: '"Error in searching product',
+            err
+        })
+    }
+}
+
+//similar product controller
+export const relatedProductController = async (req, res) => {
+    try {
+        const { pid, cid } = req.params
+        const products = await productModel.find({
+            category: cid, _id: { $ne: pid } //ne means not included
+        }).select("-photo").limit(4).populate("category")
+        res.status(200).send({
+            success: true,
+            products,
+        })
+
+    } catch (err) {
+        console.log(err)
+        res.status(400).send({
+            success: false,
+            message: "Error whle getting related product",
+            err
+        })
+    }
+}
