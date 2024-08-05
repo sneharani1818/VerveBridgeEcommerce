@@ -162,3 +162,33 @@ export const updateProductController = async (req, res) => {
         })
     }
 }
+
+//product filter controller
+export const productFiltersController = async (req, res) => {
+    try {
+        const { checked, radio } = req.body
+        let args = {}
+        console.log('In controller function')
+        console.log('Received filters:', { checked, radio }); // Debug log
+        // if (checked.length > 0) args.category = { $in: checked }
+        if (checked.length > 0) args.category = { '$in': [(checked)] }
+        // if (radio != []) { args.price = { $gte: radio[0], $lte: radio[1] } } //gte=greater than equal
+        if (JSON.stringify(radio) != '[]') { args.price = { '$gte': radio[0], '$lte': radio[1] } } //gte=greater than equal
+
+        console.log('Query arguments:', args); // Debug log
+
+        const products = await productModel.find(args)
+        res.status(200).send({
+            success: true,
+            products,
+            args,
+        })
+    } catch (err) {
+        console.log(err)
+        res.status(400).send({
+            success: false,
+            message: "Error while filtering products",
+            err
+        })
+    }
+}
