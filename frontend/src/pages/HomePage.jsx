@@ -10,13 +10,21 @@ const HomePage = () => {
     const [categories, setCategories] = useState([])
     const [checked, setChecked] = useState([])
     const [radio, setRadio] = useState([])
+    const [total, setTotal] = useState(0)
+    const [page, setPage] = useState(1)
+    const [loading, setLoading] = useState(false)
+
 
     //get all products
     const getAllProducts = async () => {
+        setLoading(true)
         try {
-            const { data } = await axios.get('http://localhost:8080/api/v1/products/get-product')
+            const { data } = await axios.get(`http://localhost:8080/api/v1/products/product-list/${page}`)
+            // const { data } = await axios.get('http://localhost:8080/api/v1/products/get-product')
+            setLoading(false)
             setProducts(data.products)
         } catch (err) {
+            setLoading(false)
             console.log(err)
         }
     }
@@ -30,6 +38,35 @@ const HomePage = () => {
             }
         } catch (err) {
             console.log(err)
+        }
+    }
+
+    //get total count
+    const getTotal = async () => {
+        try {
+            const { data } = await axios.get('http://localhost:8080/api/v1/products/product-count')
+            setTotal(data?.total)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    useEffect(() => {
+        if (page === 1) return
+        loadMore()
+        return
+    }, [page])
+
+    //load more function
+    const loadMore = async () => {
+        try {
+            setLoading(true)
+            const { data } = await axios.get(`http://localhost:8080/api/v1/products/product-list/${page}`)
+            setLoading(false)
+            setProducts([...products, ...data?.products])
+        } catch (err) {
+            console.log(err)
+            setLoading(false)
         }
     }
 
@@ -50,6 +87,7 @@ const HomePage = () => {
             getAllProducts();
         else
             filterProduct()
+        getTotal()
         return
     }, [checked.length, radio.length])
     // useEffect(() => {
@@ -123,6 +161,16 @@ const HomePage = () => {
                             // {/* </Link> */ }
 
                         ))}
+                    </div>
+                    <div className='m-2 p-3' style={{ textAlign: 'center' }}>
+                        {products && products.length < total && (
+                            <button className='btn btn-small btn-warning' onClick={(e) => {
+                                e.preventDefault()
+                                setPage(page + 1)
+                            }}>
+                                {loading ? 'Loading' : 'Load more'}
+                            </button>
+                        )}
                     </div>
                 </div>
             </div>
